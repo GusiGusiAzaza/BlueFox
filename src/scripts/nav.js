@@ -1,4 +1,4 @@
-export default (function () {
+(function () {
     const sidebar = document.querySelector('.sidebar');
     const sidebarToggles = document.querySelectorAll('#sidebarToggle, #sidebarToggleTop');
 
@@ -53,7 +53,7 @@ export default (function () {
     const scrollToTop = document.querySelector('.scroll-to-top');
 
     if (scrollToTop) {
-        // Scroll to top button appear
+    // Scroll to top button appear
         window.addEventListener('scroll', () => {
             const scrollDistance = window.pageYOffset;
 

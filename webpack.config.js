@@ -26,35 +26,27 @@ module.exports = {
                 }
             },
             {
-            // node_modules - only babel, no eslint
-                test: /\.(js|jsx)$/,
-                include: [
-                    path.resolve(__dirname, 'node_modules')
-                ],
-                use: [
-                    {
-                        loader: 'babel-loader'
-                    }
-                ]
-            }, {
-            // project files - babel + eslint
-                test: /\.(js|jsx)$/,
-                include: [
-                    path.resolve(__dirname, './your-project-root/')
-                ],
-                use: [
-                    {
-                        loader: 'babel-loader'
-                    }, {
-                        loader: 'eslint-loader'
-                    }
-                ]
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015']
+                }
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]?[hash]'
+                }
+            },
+            {
+                test: /\.(ttf|otf|eot|woff|woff2)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'fonts/[name].[ext]'
+                    }
                 }
             }
         ]

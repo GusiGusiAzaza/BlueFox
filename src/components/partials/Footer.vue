@@ -7,11 +7,11 @@
 </template>
 
 <script>
-export default {
-  name: "foot"
-}
-</script>
 
+</script>
+  export default {
+    name: 'Footer'
+  };
 <style scoped>
 
 </style>
