@@ -15,12 +15,9 @@
           </div>
         </div>
       </div>
-      <footer class="bg-white sticky-footer">
-        <div class="container my-auto">
-          <div class="text-center my-auto copyright"><span>Copyright © Kirill Harevich 2021</span></div>
-        </div>
-      </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+      <Footer/>
+    </div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
   </div>
   </div>
 </template>
@@ -28,10 +25,11 @@
 <script>
 import NavLeft from '../components/partials/NavLeft.vue';
 import NavTop from '../components/partials/NavTop.vue';
+import Footer from '../components/partials/Footer.vue';
 
 export default {
     name: 'NotFound',
-    components: { NavTop: NavTop, NavLeft: NavLeft }
+    components: { NavTop: NavTop, NavLeft: NavLeft, Footer: Footer }
 };
 </script>
 

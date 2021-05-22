@@ -1,76 +1,70 @@
-(function() {
-  "use strict"; // Start of use strict
+(function () {
+    // Start of use strict
 
-  var sidebar = document.querySelector('.sidebar');
-  var sidebarToggles = document.querySelectorAll('#sidebarToggle, #sidebarToggleTop');
-  
-  if (sidebar) {
-    
-    var collapseEl = sidebar.querySelector('.collapse');
-    var collapseElementList = [].slice.call(document.querySelectorAll('.sidebar .collapse'))
-    var sidebarCollapseList = collapseElementList.map(function (collapseEl) {
-      return new bootstrap.Collapse(collapseEl, { toggle: false });
-    });
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggles = document.querySelectorAll('#sidebarToggle, #sidebarToggleTop');
 
-    for (var toggle of sidebarToggles) {
+    if (sidebar) {
+        const collapseEl = sidebar.querySelector('.collapse');
+        const collapseElementList = [].slice.call(document.querySelectorAll('.sidebar .collapse'));
+        const sidebarCollapseList = collapseElementList.map((collapseEl) => new bootstrap.Collapse(collapseEl, { toggle: false }));
 
-      // Toggle the side navigation
-      toggle.addEventListener('click', function(e) {
-        document.body.classList.toggle('sidebar-toggled');
-        sidebar.classList.toggle('toggled');
+        for (const toggle of sidebarToggles) {
+            // Toggle the side navigation
+            toggle.addEventListener('click', (e) => {
+                document.body.classList.toggle('sidebar-toggled');
+                sidebar.classList.toggle('toggled');
 
-        if (sidebar.classList.contains('toggled')) {
-          for (var bsCollapse of sidebarCollapseList) {
-            bsCollapse.hide();
-          }
-        };
-      });
+                if (sidebar.classList.contains('toggled')) {
+                    for (const bsCollapse of sidebarCollapseList) {
+                        bsCollapse.hide();
+                    }
+                }
+            });
+        }
+
+        // Close any open menu accordions when window is resized below 768px
+        window.addEventListener('resize', () => {
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+
+            if (vw < 768) {
+                for (const bsCollapse of sidebarCollapseList) {
+                    bsCollapse.hide();
+                }
+            }
+        });
     }
 
-    // Close any open menu accordions when window is resized below 768px
-    window.addEventListener('resize', function() {
-      var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
 
-      if (vw < 768) {
-        for (var bsCollapse of sidebarCollapseList) {
-          bsCollapse.hide();
-        }
-      };
-    });
-  }
+    const fixedNaigation = document.querySelector('body.fixed-nav .sidebar');
 
-  // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  
-  var fixedNaigation = document.querySelector('body.fixed-nav .sidebar');
-  
-  if (fixedNaigation) {
-    fixedNaigation.on('mousewheel DOMMouseScroll wheel', function(e) {
-      var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (fixedNaigation) {
+        fixedNaigation.on('mousewheel DOMMouseScroll wheel', function (e) {
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
-      if (vw > 768) {
-        var e0 = e.originalEvent,
-          delta = e0.wheelDelta || -e0.detail;
-        this.scrollTop += (delta < 0 ? 1 : -1) * 30;
-        e.preventDefault();
-      }
-    });
-  }
+            if (vw > 768) {
+                const e0 = e.originalEvent;
+                const delta = e0.wheelDelta || -e0.detail;
+                this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                e.preventDefault();
+            }
+        });
+    }
 
-  var scrollToTop = document.querySelector('.scroll-to-top');
-  
-  if (scrollToTop) {
-    
+    const scrollToTop = document.querySelector('.scroll-to-top');
+
+    if (scrollToTop) {
     // Scroll to top button appear
-    window.addEventListener('scroll', function() {
-      var scrollDistance = window.pageYOffset;
+        window.addEventListener('scroll', () => {
+            const scrollDistance = window.pageYOffset;
 
-      //check if user is scrolling up
-      if (scrollDistance > 100) {
-        scrollToTop.style.display = 'block';
-      } else {
-        scrollToTop.style.display = 'none';
-      }
-    });
-  }
-
-})(); // End of use strict
+            // check if user is scrolling up
+            if (scrollDistance > 100) {
+                scrollToTop.style.display = 'block';
+            } else {
+                scrollToTop.style.display = 'none';
+            }
+        });
+    }
+}()); // End of use strict

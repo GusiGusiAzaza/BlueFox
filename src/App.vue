@@ -5,16 +5,8 @@
 </template>
 
 <script>
-import NavLeft from './components/partials/NavLeft.vue';
-import NavTop from './components/partials/NavTop.vue';
-import Footer from './components/partials/Footer.vue';
-
 export default {
-    name: 'App',
-    components: {
-        NavLeft: NavLeft,
-        Footer: Footer
-    }
+    name: 'App'
 };
 
 </script>

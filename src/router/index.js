@@ -16,11 +16,6 @@ export default new Router({
             component: Home
         },
         {
-            path: '/notfound',
-            name: 'notfound',
-            component: NotFound
-        },
-        {
             path: '/register',
             name: 'register',
             component: Register
@@ -29,6 +24,10 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '*',
+            component: NotFound
         }
         // ,
         // {

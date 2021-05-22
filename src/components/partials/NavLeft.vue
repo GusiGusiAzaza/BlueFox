@@ -12,7 +12,6 @@
         <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
         <li class="nav-item"><router-link class="nav-link" to="/login"><i class="far fa-user-circle"></i><span>Login</span></router-link></li>
         <li class="nav-item"><router-link class="nav-link" to="/register"><i class="fas fa-user-circle"></i><span>Register</span></router-link></li>
-        <li class="nav-item"><router-link class="nav-link" to="/notfound"></router-link><span>Not Found</span></li>
         <li class="nav-item"><a class="nav-link" href="blank.html"><i class="fas fa-window-maximize"></i><span>Blank Page</span></a></li>
       </ul>
       <div class="text-center d-none d-md-inline">
@@ -27,55 +26,5 @@ export default {
 };
 </script>
 <style scoped>
-@media (min-width: 768px) {
-  .sidebar {
-    width: 14rem !important;
-  }
-}
-
-.sidebar {
-  width: 6.5rem;
-  min-height: 100vh;
-}
-
-.bg-gradient-primary {
-  background-color: #4e73df;
-  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
-  background-size: cover;
-}
-
-.p-0 {
-  padding: 0 !important;
-}
-
-.align-items-start {
-  align-items: flex-start !important;
-}
-
-.navbar {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #858796;
-  background-color: #fff;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
 
 </style>
