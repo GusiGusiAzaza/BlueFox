@@ -1,29 +1,57 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../views/Home.vue';
-import NotFound from '../views/NotFound.vue';
-import Register from '../views/Register.vue';
-import Login from '../views/Login.vue';
+import Home from '../components/views/Home.vue';
+import NotFound from '../components/views/NotFound.vue';
+import Register from '../components/views/Register.vue';
+import Login from '../components/views/Login.vue';
+import Profile from '../components/views/Profile.vue';
+import Admin from '../components/views/Admin.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
             path: '/',
             name: 'home',
+            meta: {
+                requiresAuth: true
+            },
             component: Home
         },
         {
             path: '/register',
             name: 'register',
+            meta: {
+                guest: true
+            },
             component: Register
         },
         {
             path: '/login',
             name: 'login',
+            meta: {
+                guest: true
+            },
             component: Login
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            meta: {
+                requiresAuth: true
+            },
+            component: Profile
+        },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin,
+            meta: {
+                requiresAuth: true,
+                is_admin: true
+            }
         },
         {
             path: '*',
@@ -38,3 +66,35 @@ export default new Router({
         // }
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (localStorage.getItem('jwt') == null) {
+            next({
+                path: '/login',
+                params: { nextUrl: to.fullPath }
+            });
+        } else {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (to.matched.some((record) => record.meta.is_admin)) {
+                if (user.is_admin) {
+                    next();
+                } else {
+                    next({ name: 'profile' });
+                }
+            } else {
+                next();
+            }
+        }
+    } else if (to.matched.some((record) => record.meta.guest)) {
+        if (localStorage.getItem('jwt') == null) {
+            next();
+        } else {
+            next({ name: 'profile' });
+        }
+    } else {
+        next();
+    }
+});
+
+export default router;

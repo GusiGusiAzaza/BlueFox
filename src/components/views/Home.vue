@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import NavLeft from '../components/partials/NavLeft.vue';
-import NavTop from '../components/partials/NavTop.vue';
-import Footer from '../components/partials/Footer.vue';
+import NavLeft from '../partials/NavLeft.vue';
+import NavTop from '../partials/NavTop.vue';
+import Footer from '../partials/Footer.vue';
 
 export default {
     name: 'Home',
-    components: { NavTop: NavTop, NavLeft: NavLeft, Footer: Footer }
+    components: { NavTop, NavLeft, Footer }
 };
 </script>
 
