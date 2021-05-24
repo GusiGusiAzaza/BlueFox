@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                 <tr v-if='testsLoading'>Loading...</tr>
-                <tr v-for='test in tests' :key='test.name' :id='test._id' @click='loadQuestions'>
+                <tr v-for='test in tests' :key='test.name' :id='test._id' :style='{background: test._id === selectedTest ? "LightBlue" : ""}' @click='loadQuestions'>
                   <td>{{ test.name }}</td>
                   <td>{{ themes.find((theme) => theme._id === selectedTheme).name }}</td>
                   <td>{{ test.timeLimit }}</td>

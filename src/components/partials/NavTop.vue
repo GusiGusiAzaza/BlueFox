@@ -15,22 +15,6 @@
               </form>
             </div>
           </li>
-          <li class="nav-item dropdown no-arrow mx-1">
-            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                <h6 class="dropdown-header">alerts center</h6>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item dropdown no-arrow mx-1">
-            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">7</span><i class="fas fa-envelope fa-fw"></i></a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-              </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </div>
-            <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
-          </li>
           <div class="d-none d-sm-block topbar-divider"></div>
           <li class="nav-item dropdown no-arrow">
             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
@@ -38,8 +22,6 @@
               <img class="border rounded-circle img-profile" src="src/assets/img/dogs/image2.jpeg"></a>
               <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                 <router-link class="dropdown-item" to="/profile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</router-link>
-                <router-link class="dropdown-item" to="/settings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</router-link>
-                <router-link class="dropdown-item" to="/activity"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</router-link>
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" @click="logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button>
               </div>
