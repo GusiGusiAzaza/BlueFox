@@ -5,7 +5,9 @@ import NotFound from '../components/views/NotFound.vue';
 import Register from '../components/views/Register.vue';
 import Login from '../components/views/Login.vue';
 import Profile from '../components/views/Profile.vue';
+import Tests from '../components/views/Tests.vue';
 import Admin from '../components/views/Admin.vue';
+import Results from '../components/views/Results.vue';
 
 Vue.use(Router);
 
@@ -19,6 +21,22 @@ const router = new Router({
                 requiresAuth: true
             },
             component: Home
+        },
+        {
+            path: '/tests',
+            name: 'tests',
+            meta: {
+                requiresAuth: true
+            },
+            component: Tests
+        },
+        {
+            path: '/results',
+            name: 'results',
+            meta: {
+                requiresAuth: true
+            },
+            component: Results
         },
         {
             path: '/register',
@@ -50,7 +68,7 @@ const router = new Router({
             component: Admin,
             meta: {
                 requiresAuth: true,
-                is_admin: true
+                isAdmin: true
             }
         },
         {
@@ -76,8 +94,8 @@ router.beforeEach((to, from, next) => {
             });
         } else {
             const user = JSON.parse(localStorage.getItem('user'));
-            if (to.matched.some((record) => record.meta.is_admin)) {
-                if (user.is_admin) {
+            if (to.matched.some((record) => record.meta.isAdmin)) {
+                if (user.isAdmin) {
                     next();
                 } else {
                     next({ name: 'profile' });

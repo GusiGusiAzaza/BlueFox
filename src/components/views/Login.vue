@@ -7,7 +7,7 @@
           <div class="card-body p-0">
             <div class="row">
               <div class="col-lg-6 d-none d-lg-flex">
-                <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;src/assets/img/dogs/image3.jpeg&quot;);"></div>
+                <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;src/assets/img/previews/[057794].jpg&quot;);"></div>
               </div>
               <div class="col-lg-6">
                 <div class="p-5">
@@ -21,8 +21,8 @@
                     <div class="mb-3">
                       <input class="form-control form-control-user" v-model="password" type="password" id="InputPassword" placeholder="Password" name="password" required>
                     </div>
-                    <small class="form-text text-danger" v-if="status === 401 || status === 406">Incorrect email or password</small>
-                    <button @click="loginUser" class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                    <small class="form-text text-danger" v-text="error"></small>
+                    <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
                     <hr>
                   </form>
                   <div class="text-center"><router-link class="small" to="/register">Create an Account!</router-link></div>
@@ -54,6 +54,13 @@ export default {
     },
     methods: {
         loginUser() {
+            const EMAIL_EXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            if (!(EMAIL_EXP.test(this.login.toLocaleLowerCase()))) {
+                this.error = 'Invalid email';
+                return;
+            }
+
             axios({
                 method: 'post',
                 url: `${serverUrl}/auth/login`,
@@ -63,14 +70,29 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.status = res.status;
                     if (res.status === 200) {
-                        this.$router.push('/profile');
+                        const { isAdmin } = res.data;
+                        localStorage.setItem('user', JSON.stringify({ id: res.data.id, isAdmin }));
+                        localStorage.setItem('jwt', res.data.token);
+                        window.id = res.data.id;
+
+                        if (localStorage.getItem('jwt') != null) {
+                            this.$emit('loggedIn');
+                            axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+                            if (this.$route.params.nextUrl != null) {
+                                this.$router.push(this.$route.params.nextUrl);
+                            } else if (isAdmin) {
+                                window.isAdmin = true;
+                                this.$router.push('profile');
+                            } else {
+                                window.isAdmin = false;
+                                this.$router.push('profile');
+                            }
+                        }
                     }
-                    console.log(res);
                 })
                 .catch((err) => {
-                    this.status = 406;
+                    this.error = 'Invalid email or password';
                     console.log(err);
                 });
         }
@@ -78,6 +100,6 @@ export default {
 };
 </script>
 
-<style>
+<style >
 
 </style>

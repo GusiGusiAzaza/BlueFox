@@ -1,13 +1,35 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="page-top">
+    <div id="wrapper">
+      <NavLeft v-if="!['login', 'register'].includes($route.name)"/>
+      <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content" style="filter: blur(0px);">
+          <NavTop v-if="!['login', 'register'].includes($route.name)"/>
+          <router-view/>
+        </div>
+        <Footer v-if="!['login', 'register'].includes($route.name)"/>
+      </div>
+      <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import NavLeft from './components/partials/NavLeft.vue';
+import NavTop from './components/partials/NavTop.vue';
+import Toast from './components/partials/Toast.vue';
+
 export default {
-    name: 'App'
+    name: 'App',
+    components: { NavTop, NavLeft, Toast }
 };
+
+if (localStorage.getItem('jwt') != null) {
+    window.id = JSON.parse(localStorage.getItem('user')).id;
+    window.isAdmin = JSON.parse(localStorage.getItem('user')).isAdmin;
+    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
+}
 
 </script>
 

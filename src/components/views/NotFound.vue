@@ -1,10 +1,8 @@
 <template>
   <div id="page-top">
   <div id="wrapper">
-    <NavLeft/>
     <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
-        <NavTop/>
         <div class="container-fluid">
           <div class="text-center mt-5">
             <div class="error mx-auto" data-text="404">
@@ -15,21 +13,14 @@
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
   </div>
   </div>
 </template>
 
 <script>
-import NavLeft from '../partials/NavLeft.vue';
-import NavTop from '../partials/NavTop.vue';
-import Footer from '../partials/Footer.vue';
-
 export default {
-    name: 'NotFound',
-    components: { NavTop, NavLeft, Footer }
+    name: 'NotFound'
 };
 </script>
 
