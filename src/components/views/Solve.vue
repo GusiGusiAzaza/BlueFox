@@ -8,8 +8,8 @@
               <h5 class="text-primary text-lg-center m-0 fw-bold">{{ question.question }}</h5>
             </div>
             <div v-for='(answer, index) in question.answers' :key='answer' style="margin: 25px 0 15px 50px;">
-              <input v-if='question.rightCount === 1' type='radio' :name='question._id' :value='answer._id' :checked='question[index].userAnswer'>
-              <input v-else type='checkbox' :name='question._id' :value='answer._id' :checked='question[index].userAnswer'>
+              <input v-if='question.rightCount === 1' type='radio' :name='question._id' :value='answer._id' :checked='questions[index].userAnswer'>
+              <input v-else type='checkbox' :name='question._id' :value='answer._id' :checked='questions[index].userAnswer'>
               <label :for="index" style="margin-left: 20px;">{{ answer.answer }}</label>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default {
                     this.questions = questions;
                     questions.forEach((q) => {
                         q.rightCount = 0;
-                        q.userAnswer = [];
+                        q.userAnswer = null;
                         q.answers.forEach((a) => { if (a.isRight) q.rightCount++; });
                     });
                 })
