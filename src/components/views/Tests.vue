@@ -11,9 +11,15 @@
           <div class="card-body">
             <p class="mb-md-2 text-primary">Time limit: {{ test.timeLimit }} minute(s)</p>
             <p class="mb-md-2 text-primary">Score to pass: {{ test.passScore }}%</p>
-            <router-link class="btn btn-outline-primary btn-icon-split" :to="'/themes/' + $route.params.themeId + '/tests/' + test._id + '/solve'">
+            <p class="mb-md-2 text-primary">Tries: {{ test.tryCount }}</p>
+            <p class="mb-md-2 text-primary">Score: {{ test.score }}</p>
+            <router-link class="btn btn-outline-primary btn-icon-split" v-if='!test.tryCount' :to="'/themes/' + $route.params.themeId + '/tests/' + test._id + '/solve'">
               <span class="icon"><i class="fas fa-arrow-right"></i></span>
               <span class="text-dark text">Start {{ test.name }} test</span>
+            </router-link>
+            <router-link v-if='test.tryCount' class="btn btn-outline-warning btn-icon-split mt-2" :to="'/results/' + test._id">
+              <span class="icon"><i class="fas fa-arrow-right"></i></span>
+              <span class="text-dark text">View last result</span>
             </router-link>
           </div>
         </div>
@@ -30,6 +36,7 @@ export default {
     data() {
         return {
             tests: [],
+            results: [],
             testsLoading: false
         };
     },
@@ -45,10 +52,32 @@ export default {
     methods: {
         fetchTests() {
             this.testsLoading = true;
+
+            testController.getResultsByUserId(window.id)
+                .then((results) => {
+                    this.results = results;
+                    if (this.results.find((r) => r.testId === this.$route.params.testId)) {
+                        this.msg = 'You already completed this test';
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             testController.getTestsByThemeId(this.$route.params.themeId)
                 .then((tests) => {
                     this.testsLoading = false;
                     this.tests = tests;
+                    this.tests.forEach((test) => {
+                        const result = this.results.find((r) => r.testId === test._id);
+                        if (result) {
+                            test.tryCount = result.tryCount;
+                            test.score = result.score;
+                        } else {
+                            test.tryCount = 0;
+                            test.score = 'Not completed';
+                        }
+                    });
+                    this.testsLoading = false;
                 })
                 .catch((err) => {
                     console.log(err);

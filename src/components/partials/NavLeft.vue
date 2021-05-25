@@ -15,10 +15,8 @@
             <router-link class="nav-link" to="/profile" :class="{active: currentTab === 1}"><i class="fas fa-user"></i><span>Profile</span></router-link></li>
           <li class="nav-item" @click="currentTab = 2">
             <router-link class="nav-link" to="/themes" :class="{active: currentTab === 2}"><i class="fas fa-book-reader"></i><span>Tests themes</span></router-link></li>
-          <li class="nav-item" @click="currentTab = 3">
-            <router-link class="nav-link" to="/results" :class="{active: currentTab === 3}"><i class="fas fa-clipboard-check"></i><span>Test Results</span></router-link></li>
-          <li class="nav-item" @click="currentTab = 4" v-if="isAdmin">
-            <router-link class="nav-link" to="/admin" :class="{active: currentTab === 4}"><i class="fas fa-edit"></i><span>Admin Panel</span></router-link></li>
+          <li class="nav-item" @click="currentTab = 3" v-if="isAdmin">
+            <router-link class="nav-link" to="/admin" :class="{active: currentTab === 3}"><i class="fas fa-edit"></i><span>Admin Panel</span></router-link></li>
         </ul>
         <div class="text-center d-none d-md-inline">
           <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>

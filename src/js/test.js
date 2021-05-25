@@ -10,11 +10,35 @@ export const getThemes = () => axios.get(`${serverUrl}/themes/!findAll`)
         console.log(err);
     });
 
+export const getTest = (testId) => axios.get(`${serverUrl}/tests/${testId}`)
+    .then((res) => {
+        if (res.data) return res.data;
+        return null;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
 export const getTestsByThemeId = (themeId) => axios({
     method: 'post',
     url: `${serverUrl}/tests/!findAllByThemeId`,
     data: {
         themeId
+    }
+})
+    .then((res) => {
+        if (res.data) return res.data;
+        return null;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+export const getResultsByUserId = (userId) => axios({
+    method: 'post',
+    url: `${serverUrl}/testResults/!findAllByUserId`,
+    data: {
+        userId
     }
 })
     .then((res) => {
@@ -94,6 +118,26 @@ export const deleteTest = (id) => axios({
 export const addQuestion = (question, testId, questionNumber, answers) => axios({
     method: 'post',
     url: `${serverUrl}/questions`,
+    data: {
+        question,
+        testId,
+        questionNumber,
+        answers
+    }
+})
+    .then((res) => {
+        if (res.data) {
+            return res.data;
+        }
+        return null;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+export const addTestResult = (question, testId, questionNumber, answers) => axios({
+    method: 'post',
+    url: `${serverUrl}/testResults/`,
     data: {
         question,
         testId,

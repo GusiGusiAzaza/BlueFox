@@ -33,14 +33,6 @@ const router = new Router({
             component: Themes
         },
         {
-            path: '/themes/:themeId/tests',
-            name: 'tests',
-            meta: {
-                requiresAuth: true
-            },
-            component: Tests
-        },
-        {
             path: '/themes/:themeId/tests/:testId/solve',
             name: 'solve',
             meta: {
@@ -49,7 +41,15 @@ const router = new Router({
             component: Solve
         },
         {
-            path: '/results',
+            path: '/themes/:themeId/tests',
+            name: 'tests',
+            meta: {
+                requiresAuth: true
+            },
+            component: Tests
+        },
+        {
+            path: '/results/:resultId',
             name: 'results',
             meta: {
                 requiresAuth: true
