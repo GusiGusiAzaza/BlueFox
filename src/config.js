@@ -1,1 +1,1 @@
-export const serverUrl = 'https://bluefoxnodejs.herokuapp.com';
+export const serverUrl = 'http://localhost:4000';

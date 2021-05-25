@@ -21,8 +21,6 @@
               <span class="d-none d-lg-inline me-2 text-gray-600 small">{{ (user.firstName && user.lastName) ? user.firstName + ' ' + user.lastName : user.email}}</span>
               <img class="border rounded-circle img-profile" src="src/assets/img/dogs/image2.jpeg"></a>
               <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                <router-link class="dropdown-item" to="/profile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</router-link>
-                <div class="dropdown-divider"></div>
                 <button class="dropdown-item" @click="logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</button>
               </div>
             </div>

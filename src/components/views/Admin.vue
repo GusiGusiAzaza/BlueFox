@@ -108,11 +108,6 @@
             <small class="form-text" :class="questionSuccess ? 'text-success' : 'text-danger'"  v-text="questionMsg"></small>
           </div>
         </div>
-        <footer class="bg-white sticky-footer">
-          <div class="container my-auto">
-            <div class="text-center my-auto copyright"><span>Copyright © Kirill Harevich 2021</span></div>
-          </div>
-        </footer>
       </div>
     </div>
   </div>

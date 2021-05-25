@@ -18,11 +18,11 @@
 import axios from 'axios';
 import NavLeft from './components/partials/NavLeft.vue';
 import NavTop from './components/partials/NavTop.vue';
-import Toast from './components/partials/Toast.vue';
+import Footer from './components/partials/Footer.vue';
 
 export default {
     name: 'App',
-    components: { NavTop, NavLeft, Toast }
+    components: { Footer, NavTop, NavLeft }
 };
 
 if (localStorage.getItem('jwt') != null) {

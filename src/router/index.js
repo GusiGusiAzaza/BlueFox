@@ -5,7 +5,9 @@ import NotFound from '../components/views/NotFound.vue';
 import Register from '../components/views/Register.vue';
 import Login from '../components/views/Login.vue';
 import Profile from '../components/views/Profile.vue';
+import Themes from '../components/views/Themes.vue';
 import Tests from '../components/views/Tests.vue';
+import Solve from '../components/views/Solve.vue';
 import Admin from '../components/views/Admin.vue';
 import Results from '../components/views/Results.vue';
 
@@ -23,12 +25,28 @@ const router = new Router({
             component: Home
         },
         {
-            path: '/tests',
+            path: '/themes',
+            name: 'themes',
+            meta: {
+                requiresAuth: true
+            },
+            component: Themes
+        },
+        {
+            path: '/themes/:themeId/tests',
             name: 'tests',
             meta: {
                 requiresAuth: true
             },
             component: Tests
+        },
+        {
+            path: '/themes/:themeId/tests/:testId/solve',
+            name: 'solve',
+            meta: {
+                requiresAuth: true
+            },
+            component: Solve
         },
         {
             path: '/results',
@@ -75,13 +93,6 @@ const router = new Router({
             path: '*',
             component: NotFound
         }
-        // ,
-        // {
-        //     path: '/event/:id',
-        //     name: 'eventSingle',
-        //     component: () => import('../views/EventSingle.vue'),
-        //     beforeEnter: authGuard
-        // }
     ]
 });
 
