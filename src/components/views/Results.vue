@@ -16,9 +16,6 @@
         </div>
       </div>
     </div>
-    <button class='btn-primary rounded-3 container-fluid' style='height: 50px; margin: 50px 0px'>
-      <span class="text-light">Finish Test</span>
-    </button>
   </div>
 </template>
 

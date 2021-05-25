@@ -34,13 +34,14 @@ export default {
         return {
             test: null,
             questions: [],
-            testResult: [],
+            testResult: {},
             results: [],
-            timerMinutes: 10,
-            timerSeconds: 10,
+            timerMinutes: 0,
+            timerSeconds: 0,
+            timer: null,
             msg: '',
             questionsLoading: true,
-            userAnswers: {}
+            userAnswers: []
         };
     },
     created() {
@@ -75,8 +76,21 @@ export default {
                                     q.userAnswer = null;
                                     q.answers.forEach((a) => { if (a.isRight) q.rightCount++; });
                                 });
-                                this.userAnswers.answers = [];
-                                this.countDownTimer();
+                                this.testResult.startDate = new Date();
+                                this.testResult.rightAnswered = 0;
+                                this.timerMinutes = this.test.timeLimit - 1;
+                                this.timerSeconds = 59;
+                                this.timer = setTimeout(() => {
+                                    if (this.timerSeconds === 0 && this.timerMinutes === 0) {
+                                        this.sendResults();
+                                        return;
+                                    }
+                                    if (this.timerSeconds === 0) {
+                                        this.timerMinutes -= 1;
+                                        this.timerSeconds = 59;
+                                    }
+                                    this.timerSeconds -= 1;
+                                }, 1000);
                             })
                             .catch((err) => {
                                 console.log(err);
@@ -87,41 +101,58 @@ export default {
                     console.log(err);
                 });
         },
+
         radioSelected(e) {
             const question = this.userAnswers.find((ua) => ua.questionId === e.currentTarget.name);
-            console.log(question);
-            console.log(e.currentTarget.name);
-            console.log(e.currentTarget.id);
             if (question) {
-                question.answers.push = e.currentTarget.id;
+                question.answerId = e.currentTarget.value;
             } else {
-                this.userAnswers.questionId = e.currentTarget.name;
-                this.userAnswers.answers.push = e.currentTarget.id;
+                this.userAnswers.push({ questionId: e.currentTarget.name, answerId: e.currentTarget.value });
             }
         },
+
         checkboxSelected(e) {
-            this.userAnswers.questionId = e.currentTarget.name;
-            this.userAnswers.answerId = e.currentTarget.id;
-        },
-        sendResults() {
-            this.testResult.testId = this.test._id;
-            this.testResult.questionsCount = this.questions.length;
-        },
-        countDownTimer() {
-            if (this.timerSeconds >= 0) {
-                setTimeout(() => {
-                    if (this.timerSeconds === 0 && this.timerMinutes === 0) {
-                        this.sendResults();
-                        return;
-                    }
-                    if (this.timerSeconds === 0) {
-                        this.timerMinutes -= 1;
-                        this.timerSeconds = 59;
-                    }
-                    this.timerSeconds -= 1;
-                    this.countDownTimer();
-                }, 1000);
+            const question = this.userAnswers.find((ua) => ua.questionId === e.currentTarget.name);
+            if (question) {
+                if (e.currentTarget.checked === false) {
+                    this.userAnswers = this.userAnswers.filter((ua) => ua.answerId !== e.currentTarget.value);
+                } else {
+                    this.userAnswers.push({ questionId: e.currentTarget.name, answerId: e.currentTarget.value });
+                }
+            } else {
+                this.userAnswers.push({ questionId: e.currentTarget.name, answerId: e.currentTarget.value });
             }
+        },
+
+        sendResults() {
+            this.testResult.endDate = new Date();
+            clearTimeout(this.timer);
+
+            this.questions.forEach((q) => {
+                q.answers.forEach((a) => {
+                    this.userAnswers.forEach((ua) => {
+                        if (ua.questionId === q._id && ua.answerId === a._id && a.isRight) {
+                            this.testResult.rightAnswered += 1;
+                        }
+                    });
+                });
+            });
+
+            const testResult = {
+                testId: this.test._id,
+                questionsCount: this.questions.length,
+                userAnswers: this.userAnswers,
+                startDate: this.testResult.startDate,
+                endDate: this.testResult.endDate,
+                rightAnswered: this.testResult.rightAnswered,
+                score: ((this.testResult.rightAnswered / this.questions.length) * 100).toFixed(1)
+            };
+
+            this.testResult = testResult;
+
+            testController.addTestResult(this.testResult);
+
+            this.$router.push('/results/532523');
         }
     }
 

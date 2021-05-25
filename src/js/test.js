@@ -135,14 +135,11 @@ export const addQuestion = (question, testId, questionNumber, answers) => axios(
         console.log(err);
     });
 
-export const addTestResult = (question, testId, questionNumber, answers) => axios({
+export const addTestResult = (testResult) => axios({
     method: 'post',
     url: `${serverUrl}/testResults/`,
     data: {
-        question,
-        testId,
-        questionNumber,
-        answers
+        testResult
     }
 })
     .then((res) => {
